@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^requestHandler)(NSURLResponse*, NSData*, NSError*);
+typedef void(^requestHandler)(NSURLResponse *response, NSData *data, NSError *error);
+typedef void(^jsonHandler)(NSURLResponse *response, NSDictionary *dict, NSError *error);
 
 @interface ExtType : NSObject
 
