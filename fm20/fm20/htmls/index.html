@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style type="text/css">
+  </style>
+  <script>
+      var player, _isPlaying = false, _isLoadeddata = false;
+      function $$(id) {
+          return document.getElementById(id);
+      }
+      function audioOnPlay() {
+          _isPlaying = true;
+      }
+      function audioOnPause() {
+          _isPlaying = false;
+      }
+      function audioOnEnded() {
+          _isPlaying = false;
+      }
+      function audioOnLoadeddata() {
+          _isLoadeddata = true;
+      }
+      function initPlayer() {
+//          return true;
+          player = $$('player');
+//          player = new audio();
+          player.volume = 1;
+          player.addEventListener('play', audioOnPlay, false);
+          player.addEventListener('pause', audioOnPause, false);
+          player.addEventListener('ended', audioOnEnded, false);
+          player.addEventListener('loadedmetadata', audioOnLoadeddata, false);
+          return true;
+      }
+      function createAudio() {
+          player = new Audio();
+          player.volume = 1;
+          player.addEventListener('play', audioOnPlay, false);
+          player.addEventListener('pause', audioOnPause, false);
+          player.addEventListener('ended', audioOnEnded, false);
+          player.addEventListener('loadedmetadata', audioOnLoadeddata, false);
+      }
+      function getDuration() {
+          return player.duration;
+      }
+      function getCurrentTime() {
+          return player.currentTime;
+      }
+      function setCurrentTime(ct) {
+//          var duration = player.duration;
+//          player.currentTime = ct * duration;
+          player.currentTime = ct;
+          return true;
+      }
+      function isPlaying() {
+          return !player.paused;
+      }
+      function playUrl(url) {
+          stop();
+//          createAudio();
+          player.src = url;
+          player.load();
+          player.play();
+          //return player.src;
+          return true;
+      }
+      function playOrPause() {
+          if(player.paused) {
+              player.play();
+          } else {
+              player.pause();
+          }
+          return isPlaying();
+      }
+      function pause(){
+          player.pause();
+      }
+      function stop() {
+          player.pause();
+          _isPlaying = false;
+          _isLoadeddata = false;
+      }
+      function isEnded() {
+          return player.ended;
+      }
+      function isLoadeddata() {
+          return _isLoadeddata;
+      }
+  </script>
+</head>
+<body>
+    <audio id="player" webkit-playsinline></audio>
+</body>
+</html>
